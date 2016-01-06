@@ -24,9 +24,9 @@ $arr = explode('/', $url);
 $out = shell_exec("nslookup $arr[0]");
 if (strpos($out, '** server') !== false) {
 	$dbh->execute("UPDATE osint_url SET dead_link = 1 WHERE id=".$id);
-	if (strpos($conf->ns_fail_notify, '@') !=== false) {
+	if (strpos($conf->ns_fail_notify, '@') !== false) {
 		mail($conf->ns_fail_notify, "AIFS NS expired", 
 		"The following url had it's domain name expired recently : \r\t\r\t" . $url .
-		"\r\t\r\tDelivered you by AIFS node " $conf->node_name );
+		"\r\t\r\tDelivered you by AIFS node " . $conf->node_name );
 	}
 }

@@ -52,7 +52,7 @@ while ($row = $stmt->fetch_assoc() ) {
 }
 
 // PHP diff algorithm start
-$buffer_size = $conf->diff_buffer_size
+$buffer_size = $conf->diff_buffer_size;
 $timeout = 15;
 
 // Strings and Buffers
