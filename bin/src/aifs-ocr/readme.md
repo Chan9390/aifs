@@ -9,3 +9,4 @@ leptonica-1.69
 
 
 Builds are made are available for debian linux machines.
+See https://digitaloversight.com/developer/aifs
