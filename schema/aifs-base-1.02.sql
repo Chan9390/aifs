@@ -1681,7 +1681,7 @@ CREATE TABLE `aifs_members_groups` (
   PRIMARY KEY (`id`),
   KEY `fk_osint_groups_id` (`fk_osint_groups_id`),
   KEY `fk_aifs_member_id` (`fk_aifs_member_id`),
-  CONSTRAINT `aifs_members_groups_ibfk_1` FOREIGN KEY (`fk_groups_id`) REFERENCES `osint_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `aifs_members_groups_ibfk_1` FOREIGN KEY (`fk_osint_groups_id`) REFERENCES `osint_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `aifs_members_groups_ibfk_2` FOREIGN KEY (`fk_aifs_member_id`) REFERENCES `aifs_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1733,7 +1733,7 @@ CREATE TABLE `dnint_pagerank` (
   `fetch_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `rank` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_osint_url_id` (`fk_url_id`)
+  KEY `fk_osint_url_id` (`fk_osint_url_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
