@@ -5,8 +5,6 @@
  * @digitaloversight
  */
  
-$path = '/var/www/aifs';
-require_once = $path . '/config/aifs_config.php';
 
 Class General {
  
@@ -14,11 +12,13 @@ Class General {
  
 Class Config extends General {
     
-    var tmp_path;
+    var $tmp_path;
     
-    __construct( $domain = 'osint' ) {
+    function __construct( $domain = 'osint' ) {
     
-        
+        $path = '/var/www/aifs';
+        require_once $path . '/config/aifs_config.php';
+
         $this->global_path = '/var/www/aifs';
         $this->node_name = $node_name;
         

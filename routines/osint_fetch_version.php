@@ -6,11 +6,13 @@
  */
 
 include_once '../common/tool/DomainSelector.php';
+require_once '../config/tool/DomainSelector.php';
 
 include_once '../common/sql/Sql.php';
 include_once '../common/sql/SqlStatement.php';
 include_once '../common/tool/FetchFopen.php';
 
+$conf = new Config('osint');
 $helper = new Common('osint', $conf->global_path);
 $fetch = new FetchFopen();
 $dbh = new SQL_Class("aifs");
@@ -64,9 +66,11 @@ if ( $size != strlen(addslashes($content)))      {
         $s = $dbh->execute("SELECT aifs_members.email FROM aifs_members
                     WHERE aifs_members.id = ".$mid." LIMIT 1");
         list($email) = $s->fetch_array();
-        require_once './mailer.php';
+        
+        include '../common/helper/osint.helper.php';
+        
         mailChangeAlert($email, $url, 
-              $mydomain .= 'aifs/page.php?id=".$uid."&date=".$date);
+              $mydomain .= 'aifs/page.php?id='.$uid.'&date='.$date);
 
     }
 }

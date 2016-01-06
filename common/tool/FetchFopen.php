@@ -5,7 +5,7 @@
  * Copyright (c) digitaloversight
  */
  
-class fetch extends SQL_Class {
+class FetchFopen extends SQL_Class {
 
     function FopenFetch() {
         parent::SQL_Class("main");
@@ -184,6 +184,9 @@ class fetch extends SQL_Class {
          fputs($open, $send);
          $seeding = 0;
          while (!feof($open)) {
+             if ($open === false) {
+                die('Invalid network resource.');
+             } 
              if ($seeding < 5000) {
                  $return .= fgets($open, 4096);
              }
