@@ -6,4 +6,5 @@
 
 $path = '/var/www/aifs';
 $mydomain = 'http://example.com';
+$debug = 1;
 $node_name = 'Rollo';

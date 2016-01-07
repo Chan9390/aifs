@@ -1605,9 +1605,9 @@ CREATE TABLE `osint_contents_parsed` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(512) NOT NULL,
   `parsed_content` longtext NOT NULL,
-  `OSINT_version_id` int(11) NOT NULL,
+  `osint_version_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `OSINT_version_id` (`OSINT_version_id`)
+  KEY `osint_version_id` (`osint_version_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1656,13 +1656,13 @@ DROP TABLE IF EXISTS `osint_keyword`;
 CREATE TABLE `osint_keyword` (
   `keyword_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `keyword` varchar(255) NOT NULL,
-  `negativity` int(11) NOT NULL,
-  `positivity` int(11) NOT NULL,
-  `GEOINT_language_id` int(11) NOT NULL,
+  `dimension_x` int(11) NOT NULL,
+  `dimension_y` int(11) NOT NULL,
+  `fk_geoint_language_id` int(11) NOT NULL,
   `nature` varchar(512) DEFAULT NULL,
   `updatedTime` datetime NOT NULL,
   PRIMARY KEY (`keyword_id`),
-  KEY `GEOINT_language_id` (`GEOINT_language_id`),
+  KEY `fk_geoint_language_id` (`fk_geoint_language_id`),
   KEY `keyword_index` (`keyword`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1741,16 +1741,16 @@ CREATE TABLE `dnint_pagerank` (
 -- Table structure for table `osint_parsed_result`
 --
 
-DROP TABLE IF EXISTS `osint_parsed_result`;
+DROP TABLE IF EXISTS `dnint_parsed_result`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `osint_parsed_result` (
+CREATE TABLE `dnint_parsed_result` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `positive_avg` double NOT NULL,
-  `negative_avg` double NOT NULL,
-  `OSINT_content_parsed_id` int(11) unsigned NOT NULL,
+  `dimx_avg` double NOT NULL,
+  `dimy_avg` double NOT NULL,
+  `fk_dnint_content_parsed_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `OSINT_content_parsed_id` (`OSINT_content_parsed_id`)
+  KEY `fk_dnint_content_parsed_id` (`dnint_content_parsed_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1771,7 +1771,7 @@ CREATE TABLE `osint_tags` (
   UNIQUE KEY `tag` (`tag`,`fk_osint_url_id`),
   KEY `fk_osint_url_id` (`fk_osint_url_id`),
   KEY `fk_group_id` (`fk_group_id`),
-  CONSTRAINT `OSINT_tags_ibfk_1` FOREIGN KEY (`fk_osint_url_id`) REFERENCES `osint_urls` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `OSINT_tags_ibfk_1` FOREIGN KEY (`fk_osint_url_id`) REFERENCES `osint_url` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `OSINT_tags_ibfk_2` FOREIGN KEY (`fk_group_id`) REFERENCES `osint_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1819,7 +1819,7 @@ CREATE TABLE `osint_tags_subscribed` (
   PRIMARY KEY (`id`),
   KEY `fk_osint_url_id` (`fk_osint_url_id`),
   KEY `fk_aifs_member_id` (`fk_aifs_member_id`),
-  CONSTRAINT `OSINT_tags_subscribed_ibfk_1` FOREIGN KEY (`fk_osint_url_id`) REFERENCES `osint_urls` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `OSINT_tags_subscribed_ibfk_1` FOREIGN KEY (`fk_osint_url_id`) REFERENCES `osint_url` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `OSINT_tags_subscribed_ibfk_2` FOREIGN KEY (`fk_aifs_member_id`) REFERENCES `aifs_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1850,7 +1850,7 @@ DROP TABLE IF EXISTS `osint_titles`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `osint_titles` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `fk_versions_id` int(10) unsigned NOT NULL,
+  `fk_osint_version_id` int(10) unsigned NOT NULL,
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `eval_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fk_osint_url_id` int(10) NOT NULL,
@@ -1861,10 +1861,10 @@ CREATE TABLE `osint_titles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `osint_urls`
+-- Table structure for table `osint_url`
 --
 
-DROP TABLE IF EXISTS `osint_urls`;
+DROP TABLE IF EXISTS `osint_url`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `osint_url` (
@@ -1946,4 +1946,56 @@ CREATE TABLE `osint_visitspool` (
   `date_hours` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+--
+-- Table structure for table `dnint_url`
+--
+
+DROP TABLE IF EXISTS `dnint_url`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dnint_url` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) NOT NULL,
+  `dead_link` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `url` (`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `dnint_url_content`
+--
+
+DROP TABLE IF EXISTS `dnint_url_content`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dnint_url_content` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `fk_dnint_url_id` int(10) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `size` int(20) DEFAULT NULL,
+  `url_content` longtext,
+  PRIMARY KEY (`id`),
+  KEY `fk_dnint_url_id` (`fk_dnint_url_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `dnint_contents_parsed`
+--
+
+DROP TABLE IF EXISTS `dnint_contents_parsed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dnint_contents_parsed` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `url` varchar(512) NOT NULL,
+  `parsed_content` longtext NOT NULL,
+  `fk_dnint_content_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_dnint_content_id` (`dnint_content_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 

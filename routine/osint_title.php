@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * AIFS OSINT Title Parser
+ * Copyright (c) digitaloversight
+ */
+
+error_reporting(1); 
+ini_set('error_reporting', 1);
+
+include_once '../common/sql/Sql.php';
+include_once '../common/sql/SqlStatement.php';
+
+$dbh = new SQL_Class("aifs");
+
+$sql = $dbh->execute("  SELECT osint_version.id, osint_version.fk_osint_url_id, osint_version.content 
+                            FROM osint_version
+                            LEFT JOIN osint_titles ON (osint_titles.fk_osint_version_id = osint_version.id)
+                        WHERE osint_titles.title IS NULL ORDER BY osint_version.id DESC LIMIT 1");
+
+list($id, $uid, $content) = $sql->fetch_array();
+
+if (!is_numeric($id)) {
+    die();
+}
+$content = ereg_replace('<title>', '<cutme>', $content);
+$content = ereg_replace('</title>', '<cutme>', $content);
+
+$arr = explode('<cutme>', $content);
+
+$title = ereg_replace("/\n\r|\r\n|\n|\r/", "", $arr[1]);
+
+$sql = $dbh->execute("SELECT COUNT(*) FROM osint_titles WHERE osint_titles.fk_osint_url_id =".$id);
+if ($sql->sql_result() == 0) {
+    if (strlen($arr[1]) < 500) {
+        $dbh->execute("INSERT INTO osint_titles SET fk_osint_version_id='".$id."',
+                                fk_osint_url_id='".$uid."',
+                                title='".addslashes($title)."'");
+    }
+}
+
+

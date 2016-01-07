@@ -7,8 +7,11 @@
  
 class FetchFopen extends SQL_Class {
 
-    function FopenFetch() {
-        parent::SQL_Class("main");
+    var $domain;
+    
+    function FopenFetch( $domain = 'osint' ) {
+        parent::SQL_Class("aifs");
+        $this->domain = $domain
     }
 
     /* getContent
@@ -263,5 +266,5 @@ class FetchFopen extends SQL_Class {
          else{
               return $return;
          }
-    }
+    } // OpenPage
 }
