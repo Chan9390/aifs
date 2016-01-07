@@ -1472,6 +1472,20 @@ CREATE TABLE `geoint_utc` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `geoint_language`
+--
+DROP TABLE IF EXISTS `geoint_language`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS `geoint_language` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `label1` varchar(255) NOT NULL,
+  `label2` varchar(255) NOT NULL,
+  `code` varchar(3) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
 -- Table structure for table `humint_entity`
 --
 
@@ -1505,6 +1519,20 @@ CREATE TABLE `humint_telecom` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `humint_lsi_configurator`
+--
+
+DROP TABLE IF EXISTS `humint_lsi_configurator`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS `humint_lsi_configurator` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `debugtext` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `osint_avatars`
@@ -1660,12 +1688,44 @@ CREATE TABLE `osint_keyword` (
   `dimension_y` int(11) NOT NULL,
   `fk_geoint_language_id` int(11) NOT NULL,
   `nature` varchar(512) DEFAULT NULL,
-  `updatedTime` datetime NOT NULL,
+  `updatedTime` datetime default CURRENT_TIMESTAMP,
   PRIMARY KEY (`keyword_id`),
   KEY `fk_geoint_language_id` (`fk_geoint_language_id`),
   KEY `keyword_index` (`keyword`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `osint_keyword_relation`
+--
+
+DROP TABLE IF EXISTS `osint_keyword_relation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS `osint_keyword_relation` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `fk_keyw1_id` int(11) unsigned NOT NULL,
+  `fk_keyw2_id` int(11) unsigned NOT NULL,
+  `strength` int(11) unsigned NOT NULL default '1',
+  PRIMARY KEY  (`id`),
+  KEY `fk_keword_id_1` (`fk_keyw1_id`),
+  KEY `fk_keword_id_2` (`fk_keyw2_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Table structure for table `keyword_misspelled`
+--
+
+CREATE TABLE IF NOT EXISTS `osint_keyword_misspelled` (
+  `keyword_id` int(11) unsigned NOT NULL auto_increment,
+  `keyword` varchar(255) NOT NULL,
+  `dimension_x` int(11) NOT NULL,
+  `dimension_y` int(11) NOT NULL,
+  `fk_geoint_language_id` int(11) unsigned NOT NULL,
+  `nature` varchar(512) default NULL,
+  PRIMARY KEY  (`keyword_id`),
+  KEY `fk_geoint_language_id` (`fk_geoint_language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `aifs_members_groups`
