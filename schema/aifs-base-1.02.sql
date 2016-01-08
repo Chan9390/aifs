@@ -1688,7 +1688,7 @@ CREATE TABLE `osint_keyword` (
   `dimension_y` int(11) NOT NULL,
   `fk_geoint_language_id` int(11) NOT NULL,
   `nature` varchar(512) DEFAULT NULL,
-  `updatedTime` datetime default CURRENT_TIMESTAMP,
+  `updatedTime` timestamp default CURRENT_TIMESTAMP,
   PRIMARY KEY (`keyword_id`),
   KEY `fk_geoint_language_id` (`fk_geoint_language_id`),
   KEY `keyword_index` (`keyword`)
@@ -1810,7 +1810,7 @@ CREATE TABLE `dnint_parsed_result` (
   `dimy_avg` double NOT NULL,
   `fk_dnint_content_parsed_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_dnint_content_parsed_id` (`dnint_content_parsed_id`)
+  KEY `fk_dnint_content_parsed_id` (`fk_dnint_content_parsed_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1915,7 +1915,7 @@ CREATE TABLE `osint_titles` (
   `eval_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fk_osint_url_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_versions_id` (`fk_versions_id`),
+  KEY `fk_osint_version_id` (`fk_osint_version_id`),
   KEY `fk_osint_url_id` (`fk_osint_url_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2053,7 +2053,7 @@ CREATE TABLE `dnint_contents_parsed` (
   `parsed_content` longtext NOT NULL,
   `fk_dnint_content_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_dnint_content_id` (`dnint_content_id`)
+  KEY `fk_dnint_content_id` (`fk_dnint_content_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
