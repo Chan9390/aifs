@@ -14,7 +14,7 @@ class SQL_Class {
 
         switch($db) {
             
-            case 'main': case 'aifs':
+            case 'main': case 'aifs': default:
 
                 $this->user = "aifs";
                 $this->passwd = "";

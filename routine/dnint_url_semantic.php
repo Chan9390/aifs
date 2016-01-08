@@ -11,6 +11,7 @@ include_once '../config/tool/DomainSelector.php';
 include_once '../common/tool/DomainSelector.php';
 include_once '../common/sql/Sql.php';
 include_once '../common/sql/SqlStatement.php';
+include_once '../common/tool/FetchFopen.php';
 
 $conf = new Config('dnint');
 $helper = new Common('osint', $conf->global_path);
@@ -96,8 +97,8 @@ $newID = mysql_insert_id();
 // Now also add a record in the feed_parsed_results table
 $query = 'INSERT INTO dnint_parsed_results 
             SET dimx_avg='. addslashes($dimxAverage) . ', 
-                dimy_avg=" . addslashes($dimyAverage) . " , 
-                fk_dnint_contents_parsed_id=". addslashes($newID);
+                dimy_avg=' . addslashes($dimyAverage) . ' , 
+                fk_dnint_contents_parsed_id='. addslashes($newID);
 $stmt2 = $dbh->execute($query);
 
 

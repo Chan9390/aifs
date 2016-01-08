@@ -11,7 +11,7 @@ class FetchFopen extends SQL_Class {
     
     function FopenFetch( $domain = 'osint' ) {
         parent::SQL_Class("aifs");
-        $this->domain = $domain
+        $this->domain = $domain;
     }
 
     /* getContent
