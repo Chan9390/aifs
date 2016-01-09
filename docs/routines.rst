@@ -1,6 +1,9 @@
-
-OSINT routines
+Routines
 -----------------
+
+=================
+OSINT routines
+=================
 
 Fetch Version ( routine/osint_fetch_version.php )
 
@@ -15,9 +18,9 @@ Table Rotation ( routine/osint_table_rotation.php )
 Rotate the web content present into the main version content by renaming the sql table.
 
 
-
+=================
 DNINT routines
------------------
+=================
 
 Oubound ( routine/dnint_oubound.php )
 

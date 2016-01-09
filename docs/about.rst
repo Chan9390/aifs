@@ -1,4 +1,4 @@
-AIFS v1.02 RC1
+About AIFS
 -----------------
 
 
@@ -10,7 +10,6 @@ AIFS tries to implement general patterns related to machine learning and intelli
 Note that the code forming initial Github release of AIFS is a collection of tools and projects initially developed during 2006 and 2011 by the following developers : Vincent Menard, Julien Jouvent-Halle, Daniel Greenberg, Rabih Majzoub
 
 This software is distributed under BSD 2 clauses license.
-
 
 
 Copyright (c) 2016, Digital Oversight

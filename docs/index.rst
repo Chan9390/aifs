@@ -2,20 +2,19 @@ Welcome to AIFS Documentation
 ========================
 
 This project is hosted by `Digital Oversight`_.
-.. _a link: http://digitaloversight.com/.
 
-The code is open source, and available on `Github`_.
-.. _a link: https://github.com/digitaloversight/aifs.
+The code is open source, and available on Github_.
+.. _Digital Oversight: http://digitaloversight.com/.
+.. _Github: https://github.com/digitaloversight/aifs.
 
 .. toctree::
    about
    downloads
    install
    configuration
-   .. toctree::
    :caption: Developer
-      routines
-      aifs-ocr
+   routines
+   aifs-ocr
 
 =================
 AIFS v1.02 RC2
