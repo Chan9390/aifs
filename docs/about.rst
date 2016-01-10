@@ -1,5 +1,5 @@
 About AIFS
------------------
+==========
 
 
 
@@ -11,6 +11,8 @@ Note that the code forming initial Github release of AIFS is a collection of too
 
 This software is distributed under BSD 2 clauses license.
 
+License
+-------
 
 Copyright (c) 2016, Digital Oversight
 All rights reserved.

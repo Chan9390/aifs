@@ -1,5 +1,8 @@
-##Requirements for AIFS OCR bin development
+AIFS ocr
+========
 
+Requirements
+------------
 
 OpenCV-2.4.0
 
