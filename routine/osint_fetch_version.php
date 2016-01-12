@@ -58,11 +58,11 @@ if ( $size != strlen(addslashes($content)))      {
 
     $sql = $dbh->execute("SELECT date FROM osint_version ORDER BY id DESC LIMIT 1");
     list($date) = $sql->fetch_array();
-    $sql = $dbh->execute("SELECT fk_aifs_members_id FROM osint_tags_subscribed WHERE fk_osint_url_id = '".$uid."'");
+    $sql = $dbh->execute("SELECT fk_aifs_member_id FROM osint_tags_subscribed WHERE fk_osint_url_id = '".$uid."'");
 
     while ($row = $sql->fetch_assoc()) {
 
-        $mid = $row['fk_aifs_members_id'];
+        $mid = $row['fk_aifs_member_id'];
         $s = $dbh->execute("SELECT aifs_members.email FROM aifs_members
                     WHERE aifs_members.id = ".$mid." LIMIT 1");
         list($email) = $s->fetch_array();

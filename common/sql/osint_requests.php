@@ -160,7 +160,7 @@ class osint_request extends SQL_Class {
 
 		$s = $this->execute("SELECT *
 		 		     FROM osint_tags_subscribed
-				     WHERE osint_tags_subscribed.FK_members_id = '".$_SESSION['uid']."'
+				     WHERE osint_tags_subscribed.fk_aifs_member_id = '".$_SESSION['uid']."'
 				     AND osint_tags_subscribed.FK_urls_id= '".$id."'");
 
 		if ( mysql_num_rows($s->result) > 0 ) {
@@ -259,7 +259,7 @@ class osint_request extends SQL_Class {
 		$s = $this->execute("SELECT aifs_members_groups.id
 		 		     FROM aifs_members_groups
 				     WHERE aifs_members_groups.FK_groups_id = '".$groupId."'
-				     AND aifs_members_groups.FK_members_id='".$_SESSION['uid']."'");
+				     AND aifs_members_groups.fk_aifs_member_id='".$_SESSION['uid']."'");
 
 		if ( $row = $s->fetch_assoc() ) {
 
@@ -283,7 +283,7 @@ class osint_request extends SQL_Class {
 					    osint_tags.date
 		 		     FROM osint_tags
 				     LEFT JOIN aifs_members_groups ON (aifs_members_groups.FK_groups_id = osint_tags.FK_group_id)
-				     WHERE aifs_members_groups.FK_members_id = '".$_SESSION['uid']."'
+				     WHERE aifs_members_groups.fk_aifs_member_id = '".$_SESSION['uid']."'
 				     GROUP BY osint_tags.tag
 				     ORDER BY date desc");
 
@@ -296,7 +296,7 @@ class osint_request extends SQL_Class {
 		$s = $this->execute("SELECT osint_tags.FK_urls_id
 		 		     FROM osint_tags
 				     LEFT JOIN aifs_members_groups ON (aifs_members_groups.FK_groups_id = osint_tags.FK_group_id)
-				     WHERE aifs_members_groups.FK_members_id = '".$_SESSION['uid']."'
+				     WHERE aifs_members_groups.fk_aifs_member_id = '".$_SESSION['uid']."'
 				     GROUP BY osint_tags.FK_urls_id");
 
 		return $s;
@@ -305,7 +305,7 @@ class osint_request extends SQL_Class {
 
 	function deleteSubscribedUrls() {
 
-		$this->execute("DELETE FROM osint_tags_subscribed WHERE FK_members_id='".$_SESSION['uid']."'");
+		$this->execute("DELETE FROM osint_tags_subscribed WHERE fk_aifs_member_id='".$_SESSION['uid']."'");
 
 	}
 
@@ -330,7 +330,7 @@ class osint_request extends SQL_Class {
 
 	function saveSubscribedUrls($array) {
 
-		$query = "INSERT INTO osint_tags_subscribed (FK_urls_id, FK_members_id) VALUES ";
+		$query = "INSERT INTO osint_tags_subscribed (FK_urls_id, fk_aifs_member_id) VALUES ";
 
 		foreach ($array as $key => $value) {
 
@@ -374,9 +374,9 @@ class osint_request extends SQL_Class {
 	//function added by Rabih
 	function getemailowner($groupid){
 
-	$s = $this->execute("SELECT aifs_members.email, aifs_members.username
+	$s = $this->execute("SELECT aifs_member.email, aifs_member.username
 			             FROM osint_members
-			             LEFT JOIN osint_groups ON (osint_groups.owner_id = aifs_members.id)
+			             LEFT JOIN osint_groups ON (osint_groups.owner_id = aifs_member.id)
 			             WHERE osint_groups.id = '".$groupid."'");
 	return $s;
 
@@ -385,9 +385,9 @@ class osint_request extends SQL_Class {
 
 	function getusernamefromID($userid){
 
-	$s = $this->execute("SELECT aifs_members.username
+	$s = $this->execute("SELECT aifs_member.username
 			             FROM osint_members
-			             WHERE aifs_members.id = '".$userid."'");
+			             WHERE aifs_member.id = '".$userid."'");
 	return $s;
 
 	} //end of function added by Rabih
@@ -398,12 +398,12 @@ class osint_request extends SQL_Class {
 
 		$tag = addslashes($tag);
 
-		$s = $this->execute("SELECT aifs_members.username
+		$s = $this->execute("SELECT aifs_member.username
 		 		     FROM osint_members
-				     LEFT JOIN aifs_members_groups ON (aifs_members_groups.FK_members_id = aifs_members.id)
+				     LEFT JOIN aifs_members_groups ON (aifs_members_groups.fk_aifs_member_id = aifs_member.id)
 				     LEFT JOIN osint_tags ON (osint_tags.FK_group_id = aifs_members_groups.FK_groups_id)
 				     WHERE osint_tags.tag = '".$tag."'
-				     GROUP BY aifs_members.username");
+				     GROUP BY aifs_member.username");
 
 		return $s;
 
@@ -424,9 +424,9 @@ class osint_request extends SQL_Class {
 
 		$word = addslashes($word);
 
-		$s = $this->execute("SELECT aifs_members.username
+		$s = $this->execute("SELECT aifs_member.username
 		 		     FROM osint_members
-				     WHERE aifs_members.username LIKE '".$word."%'");
+				     WHERE aifs_member.username LIKE '".$word."%'");
 
 		return $s;
 
@@ -583,7 +583,7 @@ class osint_request extends SQL_Class {
 
 		$s = $this->execute("SELECT *
 		 		     FROM osint_members
-				     WHERE aifs_members.username = '".$user."'");
+				     WHERE aifs_member.username = '".$user."'");
 
 		if ( $row = $s->fetch_assoc() ) {
 
@@ -609,9 +609,9 @@ class osint_request extends SQL_Class {
 		$row = $s->fetch_assoc();
 		$groupId = $row['FK_group_id'];
 
-		$s = $this->execute("SELECT aifs_members.id
+		$s = $this->execute("SELECT aifs_member.id
 				    FROM osint_members
-				    WHERE aifs_members.username = '".$user."'");
+				    WHERE aifs_member.username = '".$user."'");
 
 		$row = $s->fetch_assoc();
 		$userId = $row['id'];
@@ -619,7 +619,7 @@ class osint_request extends SQL_Class {
 		$s = $this->execute("SELECT *
 		 		     FROM aifs_members_groups
 				     WHERE aifs_members_groups.FK_groups_id = '".$groupId."'
-				     AND aifs_members_groups.FK_members_id ='".$userId."'");
+				     AND aifs_members_groups.fk_aifs_member_id ='".$userId."'");
 
 		if ( $row = $s->fetch_assoc() ) {
 			$res = true;
@@ -644,16 +644,16 @@ class osint_request extends SQL_Class {
 		$row = $s->fetch_assoc();
 		$groupId = $row['FK_group_id'];
 
-		$s = $this->execute("SELECT aifs_members.id
+		$s = $this->execute("SELECT aifs_member.id
 				    FROM osint_members
-				    WHERE aifs_members.username = '".$user."'");
+				    WHERE aifs_member.username = '".$user."'");
 
 		$row = $s->fetch_assoc();
 		$userId = $row['id'];
 
 		$s = $this->execute("INSERT INTO aifs_members_groups SET
 				     aifs_members_groups.FK_groups_id = '".$groupId."',
-				     aifs_members_groups.FK_members_id ='".$userId."'");
+				     aifs_members_groups.fk_aifs_member_id ='".$userId."'");
 
 
 
@@ -671,20 +671,20 @@ class osint_request extends SQL_Class {
 		$row = $s->fetch_assoc();
 		$groupId = $row['FK_group_id'];
 
-		$s = $this->execute("SELECT aifs_members.id
+		$s = $this->execute("SELECT aifs_member.id
 				    FROM osint_members
-				    WHERE aifs_members.username = '".$user."'");
+				    WHERE aifs_member.username = '".$user."'");
 
 		$row = $s->fetch_assoc();
 		$userId = $row['id'];
 
 		$s = $this->execute("INSERT INTO aifs_members_groups SET
 				     aifs_members_groups.FK_groups_id = '".$groupId."',
-				     aifs_members_groups.FK_members_id ='".$userId."'");
+				     aifs_members_groups.fk_aifs_member_id ='".$userId."'");
 
 		//TODO : delete group si vide et delete tout les members_groups si vide
 
-		$this->execute("DELETE FROM aifs_members_groups WHERE FK_members_id='".$userId."' AND FK_groups_id='".$groupId."'");
+		$this->execute("DELETE FROM aifs_members_groups WHERE fk_aifs_member_id='".$userId."' AND FK_groups_id='".$groupId."'");
 
 	}
 
@@ -741,17 +741,17 @@ class osint_request extends SQL_Class {
 
 	function getFriendsByUser( $user ) {
 
-		$stmt = $this->execute("SELECT DISTINCT aifs_members.id, aifs_members.username
+		$stmt = $this->execute("SELECT DISTINCT aifs_member.id, aifs_member.username
 				FROM osint_members
-				LEFT JOIN aifs_members_groups ON (aifs_members.id = aifs_members_groups.FK_members_id)
+				LEFT JOIN aifs_members_groups ON (aifs_member.id = aifs_members_groups.fk_aifs_member_id)
 				WHERE aifs_members_groups.FK_groups_id IN
 					(
 					select aifs_members_groups.FK_groups_id
 					FROM aifs_members_groups
-					LEFT JOIN aifs_members ON (aifs_members_groups.FK_members_id = aifs_members.id)
-					WHERE aifs_members.username='".addslashes($user)."'
+					LEFT JOIN aifs_members ON (aifs_members_groups.fk_aifs_member_id = aifs_member.id)
+					WHERE aifs_member.username='".addslashes($user)."'
 					)
-				AND aifs_members.username != '".addslashes($user)."'
+				AND aifs_member.username != '".addslashes($user)."'
 				ORDER BY aifs_members_groups.id LIMIT 400");
 		return $stmt;
 	}
