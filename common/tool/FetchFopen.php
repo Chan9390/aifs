@@ -134,7 +134,7 @@ class FetchFopen extends SQL_Class {
 
     function open_page($url,$f=1,$c=2,$a=0,$cf=0,$pd="", $urlId=0, $dbh=false){
         global $oldheader;
-        $url = str_replace("http://","",$url);
+        $url = str_replace('http://','',str_replace('https://','',$url));
         if (preg_match("#/#","$url")){
             $page = $url;
             $url = @explode("/",$url);
@@ -153,7 +153,7 @@ class FetchFopen extends SQL_Class {
         if ($pd){
             $send = "POST $page HTTP/1.0\r\n";
         }
-        else{
+        else {
             $send = "GET $page HTTP/1.0\r\n";
         }
         $send .= "Host: $url\r\n";
@@ -186,6 +186,7 @@ class FetchFopen extends SQL_Class {
          }
          fputs($open, $send);
          $seeding = 0;
+         $return = '';
          while (!feof($open)) {
              if ($open === false) {
                 die('Invalid network resource.');
