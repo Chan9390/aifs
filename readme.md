@@ -1,4 +1,4 @@
-##AIFS v1.02 RC2
+##AIFS v1.02
 
 Jan 8th, 2016
 

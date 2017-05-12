@@ -2,7 +2,8 @@
 
 /**
  * AIFS Config Domain Selector
- * @digitaloversight
+ * @version 1.02
+ * @author Vincent Menard 
  */
  
 

@@ -2,7 +2,7 @@ About AIFS
 ==========
 
 
-AIFS v1.02 RC2
+AIFS v1.02
 --------------
 
 Jan 9th, 2016
