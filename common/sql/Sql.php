@@ -9,13 +9,12 @@ class SQL_Class {
     var $dbh;
     var $db;
 
-    function SQL_Class($db = 'main') {
-        $this->host = "localhost";
+    function SQL_Class($db = 'aifs') {
+        $this->host = "127.0.0.1";
 
         switch($db) {
             
             case 'main': case 'aifs': default:
-
                 $this->user = "aifs";
                 $this->passwd = "";
                 $this->db_name = "aifs";
@@ -24,30 +23,26 @@ class SQL_Class {
 
         }
 
-        if (!$this->dbh = mysql_connect($this->host, $this->user, $this->passwd))
+        if (!$this->dbh = mysqli_connect($this->host, $this->user, $this->passwd))
             die("Can't open sql connection on host<br />");
-        if (!mysql_select_db($this->db_name, $this->dbh))
+        if (!mysqli_select_db($this->dbh, $this->db_name))
             die("Can't select database on host<br />");
-        //mysql_query("SET CHARSET utf8"); 
+
     }
 
     function execute($query) {
         if (!$this->dbh)
             die("Can't execute query without connection<br>");
 
-        $ret = mysql_query($query, $this->dbh);
-
+        $ret = mysqli_query($this->dbh, $query);
         if (!$ret) {
-        
-            //mail("monitoring@domain.com", "SQL Error", $query.'\r\n'.$_SERVER['PHP_SELF']);
             die("We are unable to execute your request.");
-            //die("Can't send query to db<br>".$query); // Debug case
         }
-        else if (!is_resource($ret)) {
+        else if (!($ret instanceof mysqli_result)) {
             return TRUE;
         }
         else {
-            $stmt = new SQL_Statement($this->dbh, $query);
+            $stmt = new Statement($this->dbh, $query);
             $stmt->result = $ret;
             return $stmt;
         }

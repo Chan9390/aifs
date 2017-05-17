@@ -17,10 +17,10 @@ Class Config extends General {
     
     function __construct( $domain = 'osint' ) {
 
-        $path = '/var/www/aifs';
+        $path = '/var/aifs';
         require_once $path . '/config/config.php';
 
-        $this->global_path = '/var/www/aifs';
+        $this->global_path = '/var/aifs';
         $this->node_name = $node_name;
         $this->debug = $debug;
         
@@ -41,7 +41,9 @@ Class Config extends General {
                 $this->tmp_path = $this->global_path.'/routine/tmp/dnint';
                 
              break;
-            
+           
+            case 'finint':
+            break; 
         }
     }    
  

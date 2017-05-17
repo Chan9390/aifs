@@ -2058,4 +2058,57 @@ CREATE TABLE `dnint_contents_parsed` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+--
+-- Table structure for table `finint_currency`
+--
+
+DROP TABLE IF EXISTS `finint_currency`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `finint_currency` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(512) NOT NULL,
+  `ticker` varchar(20) NOT NULL,
+  `initiated` datetime NOT NULL,
+  `ended` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `finint_currency_source`
+--
+
+DROP TABLE IF EXISTS `finint_currency_source`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `finint_currency_source` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fk_finint_currency_id` int(11) NOT NULL,
+  `fk_dnint_url_id` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `finint_currency_value`
+--
+
+DROP TABLE IF EXISTS `finint_currency_value`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `finint_currency_value` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `value` double NOT NULL, 
+  `saved` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `fk_finint_currency_ticker_id` int(11) NOT NULL,
+  `fk_finint_currency_ref_id` int(11) NOT NULL,
+  `fk_dnint_url_id` int(11) NOT NULL, 
+  PRIMARY KEY (`id`),
+  KEY `fk_finint_currency_ticker_id` (`fk_finint_currency_ticker_id`),
+  KEY `fk_finint_currency_ref_id` (`fk_finint_currency_ref_id`),
+  KEY `fk_dnint_url_id` (`fk_dnint_url_id`)   
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
