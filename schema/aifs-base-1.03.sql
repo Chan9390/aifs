@@ -2102,11 +2102,11 @@ CREATE TABLE `finint_currency_value` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `value` double NOT NULL, 
   `saved` timestamp DEFAULT CURRENT_TIMESTAMP,
-  `fk_finint_currency_ticker_id` int(11) NOT NULL,
+  `fk_finint_currency_id` int(11) NOT NULL,
   `fk_finint_currency_ref_id` int(11) NOT NULL,
   `fk_dnint_url_id` int(11) NOT NULL, 
   PRIMARY KEY (`id`),
-  KEY `fk_finint_currency_ticker_id` (`fk_finint_currency_ticker_id`),
+  KEY `fk_finint_currency_id` (`fk_finint_currency_ticker_id`),
   KEY `fk_finint_currency_ref_id` (`fk_finint_currency_ref_id`),
   KEY `fk_dnint_url_id` (`fk_dnint_url_id`)   
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

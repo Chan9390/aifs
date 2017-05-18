@@ -6,6 +6,8 @@
  * @author Vincent Menard 
  */
  
+require_once '../common/sql/Sql.php';
+require_once '../common/sql/Statement.php';
 
 Class General {
  
@@ -43,6 +45,11 @@ Class Config extends General {
              break;
            
             case 'finint':
+
+
+                require_once '../common/helper/finint.helper.php';
+                require_once '../common/sql/finint_request.php';
+
             break; 
         }
     }    
