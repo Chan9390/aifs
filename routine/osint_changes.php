@@ -2,22 +2,24 @@
 
 /**
  * AIFS OSINT Change Parser
+ * @version 1.03
  * Copyright (c) digitaloversight
  */
- 
-error_reporting(1); 
-ini_set('error_reporting', 1);
 
-include_once '../config/tool/DomainSelector.php';
-include_once '../common/tool/DomainSelector.php';
+//error_reporting(1);
+//ini_set('error_reporting', 1);
 
-include_once '../common/sql/Sql.php';
-include_once '../common/sql/SqlStatement.php';
+require_once '../config/tool/DomainSelector.php';
+require_once '../common/tool/DomainSelector.php';
+
+use Config\Config;
+use Sql\Sql;
+use Sql\OsintRequest;
+use Common\Common;
 
 $conf = new Config('osint');
 $helper = new Common('osint', $conf->global_path);
-
-$dbh = new SQL_Class("aifs");
+$dbh = new Sql();
 
 // Check for the newest version
 $sql = $dbh->execute("SELECT id, fk_osint_url_id, content FROM osint_version ORDER BY id DESC LIMIT 1");

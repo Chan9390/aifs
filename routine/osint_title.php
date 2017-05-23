@@ -2,16 +2,18 @@
 
 /**
  * AIFS OSINT Title Parser
+ * @version 1.03
  * Copyright (c) digitaloversight
  */
 
 error_reporting(1); 
 ini_set('error_reporting', 1);
 
-include_once '../common/sql/Sql.php';
-include_once '../common/sql/SqlStatement.php';
 
-$dbh = new SQL_Class("aifs");
+require_once '../config/tool/DomainSelector.php';
+use Sql\Sql;
+
+$dbh = new Sql();
 
 $sql = $dbh->execute("  SELECT osint_version.id, osint_version.fk_osint_url_id, osint_version.content 
                             FROM osint_version

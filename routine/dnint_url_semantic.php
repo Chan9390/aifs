@@ -9,13 +9,11 @@
 
 include_once '../config/tool/DomainSelector.php';
 include_once '../common/tool/DomainSelector.php';
-include_once '../common/sql/Sql.php';
-include_once '../common/sql/SqlStatement.php';
 include_once '../common/tool/FetchFopen.php';
 
 $conf = new Config('dnint');
 $helper = new Common('osint', $conf->global_path);
-$dbh = new SQL_Class('aifs');
+$dbh = new Sql('aifs');
 $fetch = new FetchFopen('dnint');
 
 error_reporting($conf->debug); 

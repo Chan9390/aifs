@@ -5,7 +5,8 @@
  * @version 1.02
  * @author Vincent Menard 
  */
- 
+
+namespace Config; 
 require_once '../common/sql/Sql.php';
 require_once '../common/sql/Statement.php';
 
@@ -29,6 +30,8 @@ Class Config extends General {
         switch ($domain) {
             
             case 'osint':
+                require_once '../common/sql/OsintRequest.php';
+
                 // Diff Tmp file
                 $this->tmp_path = $this->global_path.'/routine/tmp/osint';
                 // Buffer size on diff
@@ -46,9 +49,8 @@ Class Config extends General {
            
             case 'finint':
 
-
                 require_once '../common/helper/finint.helper.php';
-                require_once '../common/sql/finint_request.php';
+                require_once '../common/sql/FinintRequest.php';
 
             break; 
         }

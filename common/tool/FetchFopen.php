@@ -2,15 +2,20 @@
 
 /**
  * AIFS OSINT Fetch Class by using Fopen
+ * @version 1.03
  * Copyright (c) digitaloversight
  */
+
+namespace Common;
+
+use Sql\Sql;
  
-class FetchFopen extends SQL_Class {
+class FetchFopen extends Sql {
 
     var $domain;
     
-    function FopenFetch( $domain = 'osint' ) {
-        parent::SQL_Class("aifs");
+    function __construct( $domain = 'osint' ) {
+        parent::__construct("aifs");
         $this->domain = $domain;
     }
 

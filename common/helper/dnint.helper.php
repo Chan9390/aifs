@@ -1,5 +1,7 @@
 <?php
 
+namespace Helper;
+
 /**
  * AIFS DNINT function helper
  * Copyright (c) digitaloversight

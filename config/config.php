@@ -6,6 +6,8 @@
  * @digitaloversight
  */
 
+namespace Config;
+
 $path = '/var/aifs';
 $mydomain = 'http://aifs.io';
 $debug = 1;

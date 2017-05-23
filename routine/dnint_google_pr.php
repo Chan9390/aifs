@@ -9,9 +9,9 @@
  */
 
 include '../common/sql/Sql.php';
-include '../common/sql/SqlStatement.php';
+include '../common/sql/Statement.php';
 
-$dbh = new SQL_Class("aifs");
+$dbh = new Sql("aifs");
 
 $sql = $dbh->execute("select url, u.id 
 						from osint_url u

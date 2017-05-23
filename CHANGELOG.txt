@@ -1,0 +1,10 @@
+
+1.03
+
+Use of namespace and more up-to-date OO model. (php7) 
+Addition of currency routines.
+Addition of financial information SQL tables.
+
+1.02
+
+

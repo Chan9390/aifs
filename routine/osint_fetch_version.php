@@ -2,20 +2,28 @@
 
 /**
  * AIFS OSINT Get new remote version
+ * @version 1.03
  * @digitaloversight
  */
 
-include_once '../common/tool/DomainSelector.php';
-require_once '../config/tool/DomainSelector.php';
+error_reporting(1);
+ini_set('error_reporting', 1);
 
-include_once '../common/sql/Sql.php';
-include_once '../common/sql/SqlStatement.php';
+require_once '../config/tool/DomainSelector.php';
+include_once '../common/tool/DomainSelector.php';
 include_once '../common/tool/FetchFopen.php';
 
+use Config\Config;
+use Sql\Sql;
+use Sql\OsintRequest;
+use function Helper\mailChangeAlert as humintAlert;
+use Common\Common;
+use Common\FetchFopen;
+
 $conf = new Config('osint');
-$helper = new Common('osint', $conf->global_path);
+$osint = new OsintRequest();
+$dbh = new Sql();
 $fetch = new FetchFopen();
-$dbh = new SQL_Class("aifs");
 
 $sql = $dbh->execute("SELECT id, url FROM osint_url WHERE dead_link = 0 ORDER BY rand() LIMIT 1");
 list($uid, $url) = $sql->fetch_array();
@@ -27,15 +35,14 @@ $sql = $dbh->execute("SELECT size, date
 list($size, $date) = $sql->fetch_array();
 
 if (strpos($date, date("Y").'-'.date("m").'-'.date("d") ) !== false ) {
+    // Do not fetch twice the same day.
     die();
-
 }
 
 // fetch online copy
 $content = $fetch->getContent($url);
 
-
-// compare and save
+// Compare and save.
 if ( $size != strlen(addslashes($content)))      {
 
     $dbh->execute("INSERT INTO osint_version SET  fk_osint_url_id = '".$uid."',
@@ -55,21 +62,16 @@ if ( $size != strlen(addslashes($content)))      {
         }
     }
 
-
     $sql = $dbh->execute("SELECT date FROM osint_version ORDER BY id DESC LIMIT 1");
     list($date) = $sql->fetch_array();
     $sql = $dbh->execute("SELECT fk_aifs_member_id FROM osint_tags_subscribed WHERE fk_osint_url_id = '".$uid."'");
 
     while ($row = $sql->fetch_assoc()) {
 
-        $mid = $row['fk_aifs_member_id'];
         $s = $dbh->execute("SELECT aifs_members.email FROM aifs_members
-                    WHERE aifs_members.id = ".$mid." LIMIT 1");
+                    WHERE aifs_members.id = ".$row['fk_aifs_member_id']." LIMIT 1");
         list($email) = $s->fetch_array();
-        
-        include '../common/helper/osint.helper.php';
-        
-        mailChangeAlert($email, $url, 
+        humintAlert($email, $url, 
               $mydomain .= 'aifs/page.php?id='.$uid.'&date='.$date);
 
     }

@@ -4,8 +4,10 @@
  * AIFS Common Domain Selector
  * @digitaloversight
  */
+
+namespace Common;
  
- Class Common {
+Class Common {
     
     
     function __construct( $domain = 'osint', $path ) {

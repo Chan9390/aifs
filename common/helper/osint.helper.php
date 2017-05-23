@@ -1,5 +1,7 @@
 <?php
 
+namespace Helper;
+
 /**
  * AIFS OSINT Helper File
  * Copyright (c) 2016, Digital Oversight

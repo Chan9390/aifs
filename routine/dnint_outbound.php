@@ -11,9 +11,6 @@ ini_set('error_reporting', 1);
 require_once '../config/tool/DomainSelector.php';
 require_once '../common/tool/DomainSelector.php';
 
-require_once '../common/sql/Sql.php';
-require_once '../common/sql/SqlStatement.php';
-
 $conf = new Config('osint');
 $helper = new Common('osint', $conf->global_path);
 

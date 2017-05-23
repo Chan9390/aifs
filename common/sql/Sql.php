@@ -1,6 +1,8 @@
 <?php
 
-class SQL_Class {
+namespace Sql;
+
+class Sql {
 
     var $host;
     var $user;
@@ -9,7 +11,7 @@ class SQL_Class {
     var $dbh;
     var $db;
 
-    function SQL_Class($db = 'aifs') {
+    function __construct($db = 'aifs') {
         $this->host = "127.0.0.1";
 
         switch($db) {
@@ -38,9 +40,7 @@ class SQL_Class {
         if (!$ret) {
             die("We are unable to execute your request.");
         }
-        else if (!($ret instanceof mysqli_result)) {
-            return TRUE;
-        }
+        // Plz perform instance type here.
         else {
             $stmt = new Statement($this->dbh, $query);
             $stmt->result = $ret;

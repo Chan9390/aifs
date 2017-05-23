@@ -1,5 +1,7 @@
 <?php
 
+namespace Helper;
+
 /**
  * AIFS FININT Helper File
  * Copyright (c) aifs.io
