@@ -1,15 +1,18 @@
 <?php
 
 /**
- * AIFS OSINT NS Check
+ * AIFS OSINT NameServer Check
  * @version 1.03
  * @digitaloversight
  */
 
 require_once '../config/tool/DomainSelector.php';
-$conf = new Config('dnint');
+use Config\Config;
+use Sql\Sql;
 
-$dbh = new Sql("aifs");
+$conf = new Config('dnint');
+$dbh = new Sql();
+
 $sql = $dbh->execute("SELECT id, url FROM osint_url WHERE dead_link = 0 ORDER BY rand()");
 
 list($id, $url) = $sql->fetch_array();

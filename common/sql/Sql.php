@@ -20,7 +20,6 @@ class Sql {
                 $this->user = "aifs";
                 $this->passwd = "";
                 $this->db_name = "aifs";
-            
             break;
 
         }
@@ -38,7 +37,7 @@ class Sql {
 
         $ret = mysqli_query($this->dbh, $query);
         if (!$ret) {
-            die("We are unable to execute your request.");
+            die("We are unable to execute your request.".$query);
         }
         // Plz perform instance type here.
         else {

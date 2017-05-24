@@ -8,24 +8,26 @@
  * http://isusx.com/programming
  */
 
-include '../common/sql/Sql.php';
-include '../common/sql/Statement.php';
+error_reporting(1);
+ini_set('error_reporting', 1);
 
-$dbh = new Sql("aifs");
+require_once '../config/tool/DomainSelector.php';
+use Sql\Sql;
+$dbh = new Sql();
 
-$sql = $dbh->execute("select url, u.id 
-						from osint_url u
-						where u.id not in (select fk_url_id from dnint_pagerank
-						where fetch_date > date_add(now(), INTERVAL -1 month))
-						order by rand()
-						limit 1");
+$sql = $dbh->execute("SELECT url, u.id 
+                        FROM osint_url u
+                        WHERE u.id NOT in (select fk_osint_url_id from dnint_pagerank
+				where fetch_date > date_add(now(), INTERVAL -1 month))
+                        order by rand()
+                        limit 1");
 
 while($row = $sql->fetch_assoc()) {
 	$rank = get_pr($row['url']);
 	if($rank) {
-	    $dbh->execute("insert into dnint_pagerank set fk_url_id = ".$row['id'].", rank = ".$rank."");
+	    $dbh->execute("insert into dnint_pagerank set fk_osint_url_id = ".$row['id'].", rank = ".$rank."");
 	} else {
-	    $dbh->execute("insert into dnint_pagerank set fk_url_id = ".$row['id']);
+	    $dbh->execute("insert into dnint_pagerank set fk_osint_url_id = ".$row['id']);
 	}
 }
 

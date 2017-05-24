@@ -42,13 +42,14 @@ Class Config extends General {
             break;
             
             case 'dnint':
+                require_once '../common/sql/DnintRequest.php';
+
                 // Diff Tmp file
                 $this->tmp_path = $this->global_path.'/routine/tmp/dnint';
                 
              break;
            
             case 'finint':
-
                 require_once '../common/helper/finint.helper.php';
                 require_once '../common/sql/FinintRequest.php';
 
