@@ -10,7 +10,7 @@ namespace Common;
 
 use Sql\Sql;
  
-class FetchFopen extends Sql {
+class Crawl extends Sql {
 
     var $domain;
     

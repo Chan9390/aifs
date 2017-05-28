@@ -10,20 +10,20 @@ error_reporting(1);
 ini_set('error_reporting', 1);
 
 require_once '../config/tool/DomainSelector.php';
-include_once '../common/tool/DomainSelector.php';
-include_once '../common/tool/FetchFopen.php';
+include_once '../common/component/DomainSelector.php';
+include_once '../common/component/Crawl.php';
 
 use Config\Config;
 use Sql\Sql;
 use Sql\OsintRequest;
 use function Helper\mailChangeAlert as humintAlert;
 use Common\Common;
-use Common\FetchFopen;
+use Common\Crawl;
 
 $conf = new Config('osint');
 $osint = new OsintRequest();
 $dbh = new Sql();
-$fetch = new FetchFopen();
+$fetch = new Crawl();
 
 $sql = $dbh->execute("SELECT id, url FROM osint_url WHERE dead_link = 0 ORDER BY rand() LIMIT 1");
 list($uid, $url) = $sql->fetch_array();

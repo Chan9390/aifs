@@ -8,17 +8,16 @@
  
 
 include_once '../config/tool/DomainSelector.php';
-include_once '../common/tool/DomainSelector.php';
-include_once '../common/tool/FetchFopen.php';
+include_once '../common/component/DomainSelector.php';
+include_once '../common/component/Crawl.php';
 
 $conf = new Config('dnint');
 $helper = new Common('osint', $conf->global_path);
-$dbh = new Sql('aifs');
-$fetch = new FetchFopen('dnint');
+$dbh = new Sql();
+$fetch = new Crawl('dnint');
 
 error_reporting($conf->debug); 
 ini_set('error_reporting', $conf->debug);
-
 
 $sql = $dbh->execute("SELECT url FROM url_tld_com 
                         WHERE osint_submit=0 AND subchance = 0 ORDER by id DESC LIMIT 1");

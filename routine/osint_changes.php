@@ -10,7 +10,7 @@
 //ini_set('error_reporting', 1);
 
 require_once '../config/tool/DomainSelector.php';
-require_once '../common/tool/DomainSelector.php';
+require_once '../common/component/DomainSelector.php';
 
 use Config\Config;
 use Sql\Sql;
