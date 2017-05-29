@@ -7,6 +7,9 @@
  */
 
 namespace Config; 
+
+require_once '../common/component/Response.php';
+
 require_once '../common/sql/Sql.php';
 require_once '../common/sql/Statement.php';
 

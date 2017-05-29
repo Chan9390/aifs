@@ -12,8 +12,10 @@ ini_set('error_reporting', 1);
 
 require_once '../config/tool/DomainSelector.php';
 use Sql\Sql;
+use Component\Response;
 
 $dbh = new Sql();
+$resp = new Response();
 
 $sql = $dbh->execute("  SELECT osint_version.id, osint_version.fk_osint_url_id, osint_version.content 
                             FROM osint_version
@@ -23,14 +25,15 @@ $sql = $dbh->execute("  SELECT osint_version.id, osint_version.fk_osint_url_id, 
 list($id, $uid, $content) = $sql->fetch_array();
 
 if (!is_numeric($id)) {
-    die();
+    $resp->success('200001', 'No valid record to parse.');
 }
-$content = ereg_replace('<title>', '<cutme>', $content);
-$content = ereg_replace('</title>', '<cutme>', $content);
+
+$content = preg_replace('<title>', '<cutme>', $content);
+$content = preg_replace('</title>', '<cutme>', $content);
 
 $arr = explode('<cutme>', $content);
 
-$title = ereg_replace("/\n\r|\r\n|\n|\r/", "", $arr[1]);
+$title = preg_replace("/\n\r|\r\n|\n|\r/", "", $arr[1]);
 
 $sql = $dbh->execute("SELECT COUNT(*) FROM osint_titles WHERE osint_titles.fk_osint_url_id =".$id);
 if ($sql->sql_result() == 0) {

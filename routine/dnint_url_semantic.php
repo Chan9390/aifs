@@ -9,11 +9,18 @@
 
 include_once '../config/tool/DomainSelector.php';
 include_once '../common/component/DomainSelector.php';
-include_once '../common/component/Crawl.php';
+require_once '../common/component/Crawl.php';
+
+use Config\Config;
+use Component\Response;
+use Component\Crawl;
+use Common\Common;
+use Sql\Sql;
 
 $conf = new Config('dnint');
 $helper = new Common('osint', $conf->global_path);
 $dbh = new Sql();
+$resp = new Response();
 $fetch = new Crawl('dnint');
 
 error_reporting($conf->debug); 
@@ -35,14 +42,14 @@ list($id, $url, $time) = $sql->fetch_array();;
 
 $sql = $dbh->execute("SELECT COUNT(*) FROM dnint_url_contents WHERE fk_dnint_url_id=".$id);
 if ($sql->sql_result() != 0) {
-    die();
+    $resp->success('200001', 'No valid record to parse.');
 }
 
 $content = $fetch->getContent($url, "", "", false);
 
 if( $content == '' ) { // There was a problem getting the content of this URL
     $dbh->execute("DELETE FROM dnint_url WHERE id=".$id);
-    die();
+    $resp->success('200002', 'Unable to obtain data from this URL.');
 }
 
 // Content was obtained so update or add in mysql

@@ -18,7 +18,7 @@ use Sql\Sql;
 use Sql\OsintRequest;
 use function Helper\mailChangeAlert as humintAlert;
 use Common\Common;
-use Common\Crawl;
+use Component\Crawl;
 
 $conf = new Config('osint');
 $osint = new OsintRequest();
@@ -36,7 +36,8 @@ list($size, $date) = $sql->fetch_array();
 
 if (strpos($date, date("Y").'-'.date("m").'-'.date("d") ) !== false ) {
     // Do not fetch twice the same day.
-    die();
+    $resp->success('200003', 'No action needed.');
+
 }
 
 // fetch online copy

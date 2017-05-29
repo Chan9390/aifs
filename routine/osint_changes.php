@@ -16,10 +16,12 @@ use Config\Config;
 use Sql\Sql;
 use Sql\OsintRequest;
 use Common\Common;
+use Component\Response;
 
 $conf = new Config('osint');
 $helper = new Common('osint', $conf->global_path);
 $dbh = new Sql();
+$resp = new Response();
 
 // Check for the newest version
 $sql = $dbh->execute("SELECT id, fk_osint_url_id, content FROM osint_version ORDER BY id DESC LIMIT 1");
@@ -28,12 +30,12 @@ list($new_id, $new_url_id, $new_version) = $sql->fetch_array();
 // Check if 2 versions are in store
 $sql = $dbh->execute("SELECT count(*) FROM osint_version WHERE fk_osint_url_id=".$new_url_id);
 if( $sql->sql_result() < 2 ) {
-	die();
+    $resp->success('200001', 'No valid record to parse.');
 }
 
 $sql = $dbh->execute("SELECT count(*) FROM osint_changes WHERE fk_new_version_id=".$new_id);
 if( $sql->sql_result() == 1 ) {
-        die();
+    $resp->success('200002', 'Current record already processed.');
 }
 
 $fp = fopen ($conf->tmp_path . '/tmp_file_osint_changes', "w");
@@ -135,4 +137,3 @@ $dbh->execute("INSERT INTO osint_changes_size SET fk_osint_url_id=".$new_url_id.
 					old_version_size='".strlen($old_data)."',
 					fk_changes_id='".$last_change_id."'");
 
-?>

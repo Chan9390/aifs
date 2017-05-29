@@ -6,7 +6,7 @@
  * Copyright (c) digitaloversight
  */
 
-namespace Common;
+namespace Component;
 
 use Sql\Sql;
  

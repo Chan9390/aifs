@@ -15,7 +15,6 @@ require_once '../config/tool/DomainSelector.php';
 
 use Config\Config;
 use Sql\FinintRequest;
-
 use function Helper\planarExtraction as Extraction;
 
 $conf = new Config('finint');
