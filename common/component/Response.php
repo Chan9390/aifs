@@ -5,7 +5,7 @@
  * 1.03 Component designed to send json responses.
  * @version 1.03 2017
  * @author Vincent A. Menard
- * Copyright (c) aifs
+ * Copyright (c) aifs, digitaloversight
  */
 
 namespace Component;
@@ -34,7 +34,7 @@ class Response {
         if ($code > 500000) {
             header('HTTP/1.1 500 Internal Server Error');
         }
-	$this->data = ['error' =>[ 'code' => $code, 'message' => $msg]];
+        $this->data = ['error' =>[ 'code' => $code, 'message' => $msg]];
         if ($this->node) {
             $this->data['error']['node'] = $this->node;
         }
@@ -63,7 +63,7 @@ class Response {
         }
     }
 
-    private function curlResponsee() {
+    private function curlResponse() {
 
     }
 }

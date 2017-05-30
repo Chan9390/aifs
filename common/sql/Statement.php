@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * AIFS SQL Statement 
+ * @version 1.03 2017
+ * @author Vincent Menard
+ * @digitaloversight
+ */
+
 namespace Sql;
 
 class Statement {
@@ -10,15 +17,15 @@ class Statement {
     var $resp;
 
     function __construct($dbh, $query, $response) {
-	$this->query = $query;
-	$this->dbh = $dbh;
+        $this->query = $query;
+        $this->dbh = $dbh;
         $this->resp = $response;
     }
 	
     function fetch_row() {
 
         $resp = $this->resp;
-	if (!$this->result)
+        if (!$this->result)
             $resp->error('500005', 'Query not executed.');
 
 	return mysqli_fetch_row($this->result);
@@ -42,21 +49,24 @@ class Statement {
 
     function fetch_array() {
         $resp = $this->resp;
-        if (!$this->result)
+        if (!$this->result) {
             $resp->error('500005', 'Query not executed.');
-	return mysqli_fetch_array($this->result);
+        }
+        return mysqli_fetch_array($this->result);
     }
 
     function sql_result() {
         $resp = $this->resp;
-        if (!$this->result)
+        if (!$this->result) {
             $resp->error('500005', 'Query not executed.');
+        }
         return $this->mysqli_result($this->result, 0);
     }
 
     function mysqli_result($result, $row, $field = 0) {
-        if ($result===false)
+        if ($result===false) {
             return false;
+        }
 
         if ($row >= mysqli_num_rows($result))
             return false;

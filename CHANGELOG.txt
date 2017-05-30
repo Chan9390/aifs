@@ -8,3 +8,6 @@ Addition of currency routines.
 Addition of financial information SQL tables.
 
 1.02
+
+Bug fixes related to schema changes
+Initial codebase integration.

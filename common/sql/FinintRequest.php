@@ -30,11 +30,11 @@ class FinintRequest extends Sql {
 
     function saveCurrentValue( $c_id, $ref_id, $dnint_id, $dValue ) {
 
-	$stmt = $this->execute("INSERT INTO finint_currency_value 
+        $stmt = $this->execute("INSERT INTO finint_currency_value 
                                    SET value='".addslashes($dValue)."', 
                                    fk_finint_currency_id=".$c_id.",
                                    fk_finint_currency_ref_id=".$ref_id.",
                                    fk_dnint_url_id=".$dnint_id);
-	return $stmt;
+        return $stmt;
     }
 }
