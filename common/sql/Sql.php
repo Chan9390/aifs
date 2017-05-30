@@ -1,6 +1,10 @@
 <?php
 
-class SQL_Class {
+namespace Sql;
+
+use Component\Response;
+
+class Sql {
 
     var $host;
     var $user;
@@ -9,45 +13,44 @@ class SQL_Class {
     var $dbh;
     var $db;
 
-    function SQL_Class($db = 'main') {
-        $this->host = "localhost";
+    var $resp;
+
+    function __construct($db = 'aifs') {
+        $this->host = "127.0.0.1";
 
         switch($db) {
             
             case 'main': case 'aifs': default:
-
                 $this->user = "aifs";
                 $this->passwd = "";
                 $this->db_name = "aifs";
-            
             break;
 
         }
 
-        if (!$this->dbh = mysql_connect($this->host, $this->user, $this->passwd))
-            die("Can't open sql connection on host<br />");
-        if (!mysql_select_db($this->db_name, $this->dbh))
-            die("Can't select database on host<br />");
-        //mysql_query("SET CHARSET utf8"); 
+        $this->resp = new Response();
+        $resp = $this->resp;
+        if (!$this->dbh = mysqli_connect($this->host, $this->user, $this->passwd))
+            $resp->error('500001', 'Can not open sql connection on host.');
+            
+        if (!mysqli_select_db($this->dbh, $this->db_name))
+            $resp->error('500002', 'Impossible to select database on host.');
+
     }
 
     function execute($query) {
-        if (!$this->dbh)
-            die("Can't execute query without connection<br>");
-
-        $ret = mysql_query($query, $this->dbh);
-
+        $resp = $this->resp;
+        if (!$this->dbh) {
+            $resp->error('500003', 'Cannot execute query without connection.');
+        }
+        $ret = mysqli_query($this->dbh, $query);
         if (!$ret) {
-        
-            //mail("monitoring@domain.com", "SQL Error", $query.'\r\n'.$_SERVER['PHP_SELF']);
-            die("We are unable to execute your request.");
-            //die("Can't send query to db<br>".$query); // Debug case
+            $resp->error('500004', 'We are unable to execute your request.');
+            // perform error with log level.
         }
-        else if (!is_resource($ret)) {
-            return TRUE;
-        }
+        // perform instance type check here.
         else {
-            $stmt = new SQL_Statement($this->dbh, $query);
+            $stmt = new Statement($this->dbh, $query, $resp);
             $stmt->result = $ret;
             return $stmt;
         }

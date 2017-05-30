@@ -6,7 +6,9 @@
  * @digitaloversight
  */
 
-$path = '/var/www/aifs';
-$mydomain = 'http://example.com';
+namespace Config;
+
+$path = '/var/aifs';
+$mydomain = 'http://aifs.io';
 $debug = 1;
 $node_name = 'Rollo';

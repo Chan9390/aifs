@@ -1,7 +1,8 @@
 <?php
 
 /**
- * AIFS OSINT Get outbound routine
+ * AIFS OSINT Get outbound links routine
+ * @version 1.03
  * Copyright (c) digitaloversight
  */
  
@@ -9,15 +10,12 @@ error_reporting(1);
 ini_set('error_reporting', 1);
 
 require_once '../config/tool/DomainSelector.php';
-require_once '../common/tool/DomainSelector.php';
+require_once '../common/component/DomainSelector.php';
 
-require_once '../common/sql/Sql.php';
-require_once '../common/sql/SqlStatement.php';
+use Config\Config;
+use Sql\DnintRequest;
 
-$conf = new Config('osint');
-$helper = new Common('osint', $conf->global_path);
+$conf = new Config('dnint');
+$dnint = new DnintRequest();
 
-require_once '../common/sql/dnint_requests.php';
-
-$dnint = new dnint_requests();
 $dnint->get_outbound();

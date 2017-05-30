@@ -1,0 +1,13 @@
+
+1.03
+
+Created response component.
+Moved tool classes to component folder.
+Use of namespace and more up-to-date OO model. (php7) 
+Addition of currency routines.
+Addition of financial information SQL tables.
+
+1.02
+
+Bug fixes related to schema changes
+Initial codebase integration.

@@ -2,31 +2,32 @@
 
 /**
  * AIFS OSINT SQL Requests file
+ * @verison 1.03
  * @digitaloversight
  */
+
+namespace Sql;
  
-class osint_request extends SQL_Class {
+class OsintRequest extends Sql {
 
-	function request() {
-		parent::SQL_Class("aifs");
-	} //consctructor
+    function __construct() {
+        parent::__construct("aifs");
+    }
 
-	function getContentByDate($date) {
+    function getContentByDate($date) {
 
-		$date = addslashes($date);
+        $date = addslashes($date);
+        return $this->execute("SELECT content FROM osint_version
+                               WHERE osint_version.date='".$date."' LIMIT 1");
 
-		return $this->execute("SELECT content FROM osint_version
-							   WHERE osint_version.date='".$date."' LIMIT 1");
+    } //getContentByDate
 
-	} //getContentByDate
+    function nbUrls() {
 
-	function nbUrls() {
+        $stmt = $this->execute("SELECT COUNT(url) AS nbUrls FROM osint_url");
+        return $stmt;
 
-		$stmt = $this->execute("SELECT COUNT(url) AS nbUrls FROM osint_url");
-
-		return $stmt;
-
-	}
+    }
 
 	function fetchUrlId($from, $to) {
 

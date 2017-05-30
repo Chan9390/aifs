@@ -1,18 +1,32 @@
-##AIFS v1.02
+## AIFS v1.03 [aifs.io][1]
+May 30th, 2017
 
-Jan 8th, 2016
-
-
-
-This framework implement large scale information gathering and analysis in order to provide valuable intelligence to a third party software. Using multiple source, this software calculate the risk factors related to a decision, regardeless of the initial objective and the resulting actions.
+This framework implement large scale information gathering and analysis in order to provide valuable intelligence to a third party software. Using multiple sources, this software calculate the risk factors related to a decision, regardeless of the initial objective and the resulting actions.
 
 AIFS tries to implement general patterns related to machine learning and intelligence classification. The core functionalities include libraries related to public content information, digital network information, geographical and human information.
 
-Note that the code forming initial Github release of AIFS is a collection of tools and projects initially developed during 2006 and 2011. Since many classes and functions are now aged, you will notice many parts of the source follow php4 styles and standards. The following developers participated in the early unreleased version of this software (pre 2012) : Vincent Menard, Julien Jouvent-Halle, Rabih Majzoub, Jean-François Giroux, Daniel Greenberg. 
+Documentation
+-------------
 
+Our documentation hub is available at [docs.aifs.io][2]
 
-Copyright (c) 2016, Digital Oversight
+Contributors
+------------
 
+AIFS previous contributors are displayed on the [Digital Oversight Contributors][3] page.
 
+Security Issues
+---------------
 
+If you discover a security vulnerability within AIFS, please follow our
+[disclosure procedure][4].
 
+[1]: http://aifs.io
+[2]: http://docs.aifs.io
+[3]: http://digitaloversight.com/contributors
+[4]: http://digitaloversight.com/developers/security
+
+<p align="center"><a href="https://digitaloversight.com" target="_blank">
+    Copyright (c) 2017, Digital Oversight
+    <br><br><img src="http://digitaloversight.com/images/logo.gif">
+</a></p>
