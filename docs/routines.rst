@@ -5,6 +5,7 @@ Routines
 OSINT routines
 --------------
 
+
 **Fetch Version** ``routine/osint_fetch_version.php``
 
 Perform a version check with a randomly choosen url in the user filled url table.
@@ -35,7 +36,7 @@ DNINT routines
 
 Apply semantic analysis against html parsed content.
 
-*Oubound* ``routine/dnint_oubound.php``
+**Oubound*** ``routine/dnint_oubound.php``
 
 Get the outbound links on an html version.
 
@@ -48,3 +49,9 @@ Perform an NS check on a saved url.
 Fetch the google pr for a specified url.
 
 
+
+FININT routines
+--------------
+
+
+**Currency** ``routine/finint_currency.php``

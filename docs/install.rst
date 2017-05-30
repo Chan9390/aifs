@@ -28,8 +28,6 @@ Make sure you reviwed the configuration on the following files
    ``/config/config.php``
    
    ``/config/tool/DomainSelector.php``
-   
-   ``/common/sql/Sql.php``
 
 
 Extends
